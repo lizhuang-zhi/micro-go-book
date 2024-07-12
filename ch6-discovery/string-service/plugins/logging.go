@@ -1,9 +1,10 @@
 package plugins
 
 import (
+	"time"
+
 	"github.com/go-kit/kit/log"
 	"github.com/longjoy/micro-go-book/ch6-discovery/string-service/service"
-	"time"
 )
 
 // loggingMiddleware Make a new type
@@ -63,5 +64,3 @@ func (mw loggingMiddleware) HealthCheck() (result bool) {
 	result = mw.Service.HealthCheck()
 	return
 }
-
-
