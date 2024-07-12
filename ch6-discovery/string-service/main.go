@@ -83,7 +83,7 @@ func main() {
 		errChan <- fmt.Errorf("%s", <-c)
 	}()
 
-	error := <-errChan
+	error := <-errChan //阻塞(直到errChan <- fmt.Errorf("%s", <-c)才会继续执行)
 	//服务退出取消注册
 	discoveryClient.DeRegister(instanceId, config.Logger)
 	config.Logger.Println(error)

@@ -1,12 +1,13 @@
 package discover
 
 import (
-	"github.com/go-kit/kit/sd/consul"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/api/watch"
 	"log"
 	"strconv"
 	"sync"
+
+	"github.com/go-kit/kit/sd/consul"
+	"github.com/hashicorp/consul/api"
+	"github.com/hashicorp/consul/api/watch"
 )
 
 type KitDiscoverClient struct {
@@ -15,7 +16,7 @@ type KitDiscoverClient struct {
 	client consul.Client
 	// 连接 consul 的配置
 	config *api.Config
-	mutex sync.Mutex
+	mutex  sync.Mutex
 	// 服务实例缓存字段
 	instancesMap sync.Map
 }
@@ -32,7 +33,7 @@ func NewKitDiscoverClient(consulHost string, consulPort int) (DiscoveryClient, e
 	return &KitDiscoverClient{
 		Host:   consulHost,
 		Port:   consulPort,
-		config:consulConfig,
+		config: consulConfig,
 		client: client,
 	}, err
 }
@@ -49,7 +50,7 @@ func (consulClient *KitDiscoverClient) Register(serviceName, instanceId, healthC
 		Check: &api.AgentServiceCheck{
 			DeregisterCriticalServiceAfter: "30s",
 			HTTP:                           "http://" + instanceHost + ":" + strconv.Itoa(instancePort) + healthCheckUrl,
-			Interval:                       "15s",
+			Interval:                       "3s",
 		},
 	}
 

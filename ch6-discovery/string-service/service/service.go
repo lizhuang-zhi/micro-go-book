@@ -29,7 +29,7 @@ type Service interface {
 	HealthCheck() bool
 }
 
-//ArithmeticService implement Service interface
+// ArithmeticService implement Service interface
 type StringService struct {
 }
 

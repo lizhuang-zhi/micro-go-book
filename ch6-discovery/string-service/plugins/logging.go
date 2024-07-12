@@ -9,6 +9,7 @@ import (
 
 // loggingMiddleware Make a new type
 // that contains Service interface and logger instance
+// 只是在原有的服务上包装了一层，增加了日志功能
 type loggingMiddleware struct {
 	service.Service
 	logger log.Logger
