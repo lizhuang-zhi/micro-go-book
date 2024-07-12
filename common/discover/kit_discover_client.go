@@ -61,7 +61,7 @@ func (consulClient *KitDiscoverClient) Register(serviceName, instanceId, healthC
 		log.Println("Register Service Error!")
 		return false
 	}
-	log.Println("Register Service Success!")
+	log.Printf("Register Service Success! serviceName: %v, instanceId: %v\n", serviceName, instanceId)
 	return true
 }
 

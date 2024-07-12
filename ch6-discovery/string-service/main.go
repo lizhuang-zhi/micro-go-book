@@ -73,6 +73,14 @@ func main() {
 			// 注册失败，服务启动失败
 			os.Exit(-1)
 		}
+
+		//启动前执行注册
+		if !discoveryClient.Register(*serviceName, instanceId+"_2", "/health", *serviceHost, *servicePort, nil, config.Logger) {
+			config.Logger.Printf("string-service for service_2 %s failed.", serviceName)
+			// 注册失败，服务启动失败
+			os.Exit(-1)
+		}
+
 		handler := r
 		errChan <- http.ListenAndServe(":"+strconv.Itoa(*servicePort), handler)
 	}()
@@ -86,5 +94,6 @@ func main() {
 	error := <-errChan //阻塞(直到errChan <- fmt.Errorf("%s", <-c)才会继续执行)
 	//服务退出取消注册
 	discoveryClient.DeRegister(instanceId, config.Logger)
+	discoveryClient.DeRegister(instanceId+"_2", config.Logger)
 	config.Logger.Println(error)
 }
